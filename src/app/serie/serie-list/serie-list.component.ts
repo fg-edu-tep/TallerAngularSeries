@@ -9,6 +9,7 @@ import { Serie } from '../serie';
 })
 export class SerieListComponent implements OnInit {
   series: Array<Serie> = []; 
+  selected: any = null;
   constructor(private SerieService: SerieService) { }
 
   getSeries(){
@@ -20,5 +21,27 @@ export class SerieListComponent implements OnInit {
   ngOnInit() {
     this.getSeries();
   }
+
+  selectSerie(Serie: Serie){
+    console.log('Selected:', Serie.id);  // <- test if it's working
+    this.selected = Serie;
+  }
+
+  calcularAvg(){
+    let promedios: number[] = [];
+    for  (let i = 0; i < this.series.length; i++) {
+        promedios.push(this.series[i].seasons);
+        }
+
+    let sum = 0;
+
+        for  (let j = 0; j < promedios.length; j++){
+            sum += promedios[j];
+        }
+
+        let avg = sum/promedios.length;
+
+        return avg;
+    }
 
 }
